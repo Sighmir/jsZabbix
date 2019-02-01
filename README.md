@@ -10,7 +10,7 @@ by [PyZabbix](https://github.com/lukecyca/pyzabbix).
 ## Documentation ##
 ### Getting Started
 
-Install jsZabbix using npm:
+If you are using Node.js, install jsZabbix using npm:
 
 ```bash
 $ npm install jszabbix
@@ -32,7 +32,17 @@ zapi.login(ZABBIX_USER, ZABBIX_PASS).then(async (data) => {
 })
 ```
 
-Refer to the [Zabbix API Documentation](https://www.zabbix.com/documentation/3.0/manual/api/reference) and the [jsZabbix Examples](https://github.com/Sighmir/jsZabbix/tree/master/examples) for more information.
+Refer to the [Zabbix API Documentation](https://www.zabbix.com/documentation/3.0/manual/api/reference) and the [jsZabbix Examples](https://github.com/Sighmir/jsZabbix/tree/master/examples) for more information.  
+
+### Browser
+
+You can also load this script on your browser like so:
+
+```html
+<script src='https://cdn.jsdelivr.net/npm/jszabbix/jsZabbix.js'></script>
+```
+
+You can now use the class ZabbixAPI normally on the page, like you would on Node.js.
 
 ## License ##
 ```
