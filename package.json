@@ -1,6 +1,6 @@
 {
   "name": "jszabbix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Javascript Zabbix API inspired by PyZabbix",
   "main": "index.js",
   "directories": {
