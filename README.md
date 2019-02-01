@@ -23,7 +23,7 @@ let ZabbixAPI = require('jszabbix')
 
 const ZABBIX_URL = process.env.ZABBIX_URL
 const ZABBIX_USER = process.env.ZABBIX_USER
-const ZABBIX_PASS = process.env.ZABBIX_PASS;
+const ZABBIX_PASS = process.env.ZABBIX_PASS
 
 let zapi = new ZabbixAPI(ZABBIX_URL)
 
