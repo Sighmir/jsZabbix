@@ -1,0 +1,23 @@
+{
+  "name": "jszabbix",
+  "version": "1.0.0",
+  "description": "Javascript Zabbix API inspired by PyZabbix",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sighmir/jsZabbix.git"
+  },
+  "author": "Guilherme Caulada (Sighmir)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Sighmir/jsZabbix/issues"
+  },
+  "homepage": "https://github.com/Sighmir/jsZabbix#readme",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
+}
