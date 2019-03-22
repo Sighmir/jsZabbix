@@ -22,6 +22,9 @@ class ZabbixAPI extends ExtendableProxy {
         })
         this.url = url + '/api_jsonrpc.php'
         this.auth = false
+        this.headers = {
+            'Content-Type': 'application/json-rpc'
+        }
     }
 
     send(data) {
@@ -36,7 +39,9 @@ class ZabbixAPI extends ExtendableProxy {
             if (request) {
                 var http_request = new request()
                 http_request.open('POST', self.url, true)
-                http_request.setRequestHeader('Content-Type', 'application/json-rpc')
+                for (var h in self.headers) {
+                    http_request.setRequestHeader(h, self.headers[h])
+                }
                 http_request.send(JSON.stringify(data));
                 http_request.onreadystatechange = function () {
                     if (http_request.readyState == 4) {
@@ -83,6 +88,10 @@ class ZabbixAPI extends ExtendableProxy {
                 }
             })
         })
+    }
+
+    setRequestHeader(header, value) {
+        self.headers[header] = value
     }
 }
 
