@@ -45,11 +45,7 @@ class ZabbixAPI extends ExtendableProxy {
                 http_request.send(JSON.stringify(data));
                 http_request.onreadystatechange = function () {
                     if (http_request.readyState == 4) {
-                        if (http_request.status == 200) {
-                            resolve(JSON.parse(http_request.responseText))
-                        } else {
-                            reject('There was a problem with the request. Status code is ' + http_request.status)
-                        }
+                        resolve(JSON.parse(http_request.responseText))
                     }
                 }
             } else {
