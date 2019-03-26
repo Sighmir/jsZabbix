@@ -1,10 +1,14 @@
-function isNode() {
-    return typeof module !== 'undefined' && module.exports
+if (!isNode) {
+    function isNode() {
+        return typeof module !== 'undefined' && module.exports
+    }
 }
 
-class ExtendableProxy {
-    constructor(getset={}) {
-        return new Proxy(this, getset);
+if (!ExtendableProxy) {
+    class ExtendableProxy {
+        constructor(getset={}) {
+            return new Proxy(this, getset);
+        }
     }
 }
 
