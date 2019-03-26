@@ -1,24 +1,20 @@
-if (!isNode) {
-    function isNode() {
-        return typeof module !== 'undefined' && module.exports
-    }
+isNode = () => {
+    return typeof module !== 'undefined' && module.exports
 }
 
-if (!ExtendableProxy) {
-    class ExtendableProxy {
-        constructor(getset={}) {
-            return new Proxy(this, getset);
-        }
+ExtendableProxy = class {
+    constructor(getset = {}) {
+        return new Proxy(this, getset);
     }
 }
 
 class ZabbixAPI extends ExtendableProxy {
     constructor(url) {
         super({
-            get: function (parent, name1) {
+            get: (parent, name1) => {
                 if (parent[name1] != null) return parent[name1]
                 return new Proxy({}, {
-                    get: function (proxy, name2) {
+                    get: (proxy, name2) => {
                         return parent.method(`${name1}.${name2}`)
                     }
                 })
@@ -33,7 +29,7 @@ class ZabbixAPI extends ExtendableProxy {
 
     send(data) {
         var self = this
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             var request = false
             if (isNode()) {
                 request = require('xmlhttprequest').XMLHttpRequest
@@ -47,7 +43,7 @@ class ZabbixAPI extends ExtendableProxy {
                     http_request.setRequestHeader(h, self.headers[h])
                 }
                 http_request.send(JSON.stringify(data));
-                http_request.onreadystatechange = function () {
+                http_request.onreadystatechange = () => {
                     if (http_request.readyState == 4) {
                         resolve(JSON.parse(http_request.responseText))
                     }
@@ -60,7 +56,7 @@ class ZabbixAPI extends ExtendableProxy {
 
     method(method) {
         var self = this
-        return function (params={}) {
+        return (params={}) => {
             var data = {
                 id: 1,
                 jsonrpc: '2.0',
@@ -75,11 +71,11 @@ class ZabbixAPI extends ExtendableProxy {
     login(user, password) {
         var self = this
         if (self.auth) return self.auth
-        return new Promise(function (resolve, reject) { 
+        return new Promise((resolve, reject) => { 
             self.method('user.login')({
                 user: user,
                 password: password 
-            }).then(function (data) {
+            }).then((data) => {
                 if (data.error) {
                     reject(data)
                 } else if (data.result) {
