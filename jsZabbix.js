@@ -42,10 +42,16 @@ class ZabbixAPI extends ExtendableProxy {
                 for (var h in self.headers) {
                     http_request.setRequestHeader(h, self.headers[h])
                 }
-                http_request.send(JSON.stringify(data));
+                http_request.send(JSON.stringify(data))
                 http_request.onreadystatechange = () => {
-                    if (http_request.readyState == 4) {
-                        resolve(JSON.parse(http_request.responseText))
+                    if (http_request.statusText == 'OK' || Number(http_request.status.toString()[0]) == 2) {
+                        if (http_request.readyState == 4) {
+                            resolve(JSON.parse(http_request.responseText))
+                        } else {
+                            reject(http_request.responseText)
+                        }
+                    } else {
+                        reject(http_request.responseText)
                     }
                 }
             } else {
@@ -71,10 +77,10 @@ class ZabbixAPI extends ExtendableProxy {
     login(user, password) {
         var self = this
         if (self.auth) return self.auth
-        return new Promise((resolve, reject) => { 
+        return new Promise((resolve, reject) => {
             self.method('user.login')({
                 user: user,
-                password: password 
+                password: password
             }).then((data) => {
                 if (data.error) {
                     reject(data)
@@ -82,6 +88,8 @@ class ZabbixAPI extends ExtendableProxy {
                     self.auth = data.result
                     resolve(data)
                 }
+            }).catch((data) => {
+                reject(data)
             })
         })
     }
